@@ -1,3 +1,4 @@
+# This file was modified by Harry Moss in 2020
 import argparse
 import glob
 import json
