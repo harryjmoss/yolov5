@@ -64,7 +64,15 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=None):
         c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
         cv2.rectangle(img, c1, c2, color, -1, cv2.LINE_AA)  # filled
         cv2.putText(img, label, (c1[0], c1[1] - 2), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
-
+    
+def plot_box_centroid(x, img, color=None, label=None, line_thickness=None):
+    # Plots a solid circle representing centre of bounding box on image img
+    color = color or [random.randint(0, 255) for _ in range(3)]
+    #print("img shape 0: {}, img shape 1: {}".format(img.shape[0], img.shape[1]))
+    x_coord = int(x[0]*img.shape[1])
+    y_coord = int(x[1]*img.shape[0])
+    c1, c2 = int(x[0]), int(x[1])
+    cv2.circle(img, (x_coord, y_coord), radius=5, color=color, thickness=-1)
 
 def plot_wh_methods():  # from utils.plots import *; plot_wh_methods()
     # Compares the two methods for width-height anchor multiplication

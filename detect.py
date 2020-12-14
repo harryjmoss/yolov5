@@ -11,7 +11,7 @@ from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
 from utils.general import check_img_size, non_max_suppression, apply_classifier, scale_coords, xyxy2xywh, \
     strip_optimizer, set_logging, increment_path
-from utils.plots import plot_one_box
+from utils.plots import plot_one_box, plot_box_centroid
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 
@@ -84,8 +84,12 @@ def detect(save_img=False):
                 p, s, im0 = Path(path[i]), '%g: ' % i, im0s[i].copy()
             else:
                 p, s, im0 = Path(path), '', im0s
+                im1 = im0.copy()
+
+                
 
             save_path = str(save_dir / p.name)
+            save_path_dot = str(save_dir / Path(str(Path('centre_dot_'))+ p.name))
             txt_path = str(save_dir / 'labels' / p.stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
             s += '%gx%g ' % img.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
@@ -108,8 +112,10 @@ def detect(save_img=False):
 
                     if save_img or view_img:  # Add bbox to image
                         label = '%s %.2f' % (names[int(cls)], conf)
-                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
-
+                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
+                        plot_box_centroid(xywh, im1, color=colors[int(cls)])
+                        
+                        
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
 
@@ -123,6 +129,8 @@ def detect(save_img=False):
             if save_img:
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
+                    cv2.imwrite(save_path_dot, im1)
+                    
                 else:
                     if vid_path != save_path:  # new video
                         vid_path = save_path
