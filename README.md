@@ -33,10 +33,10 @@ Starting from the pretrained model, the following steps were taken to produce bo
 
 Metrics are calculated with respect to the Sassoon dock dataset. Models listed can be found in the `weights` directory.
 
-| Model .pt file | Precision| Recall | mAP[0.5] | mAP[0.5:0.95]
-|---------- |------ |------ |------ | -------- | ------| ------ |------  |  :------: |
-| sassoon_wandb_best_150epoch_trained_on_masati100epoch_yolov5x | 0.523 | 0.958 | 0.923 | 0.550
-| sassoon100epoch_best_trained_on_masati_yolov5x_100epoch.pt | 0.532 | 0.948 | 0.921 | 0.562
+| Model .pt file | Precision| Recall | mAP[0.5] | mAP[0.5:0.95] |
+| --- | --- | --- | --- | --- |
+| sassoon_wandb_best_150epoch_trained_on_masati100epoch_yolov5x | 0.523 | 0.958 | 0.923 | 0.550 |
+| sassoon100epoch_best_trained_on_masati_yolov5x_100epoch.pt | 0.532 | 0.948 | 0.921 | 0.562 |
 
 ## Training a yolov5[smlx] model - requires GPU!
 
