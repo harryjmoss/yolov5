@@ -72,11 +72,7 @@ $ python detect.py --source $YOLOdata/images/sassoon --weights sassoon_wandb_bes
 ```
 
 ### Things to try
-* Test Time Augmentation ([TTA](https://github.com/ultralytics/yolov5/issues/303)) runs at 3 image sizes. **Reproduce TTA** by `python test.py --data sassoon.yaml --img 1175 --iou 0.65 --augment` 
-
-
-
-
-
-
-
+* Test Time Augmentation ([TTA](https://github.com/ultralytics/yolov5/issues/303)) runs at 3 image sizes. **Reproduce TTA** by
+```bash
+python test.py --data sassoon.yaml --img 1175 --iou 0.65 --weights sassoon_wandb_best_150epoch_trained_on_masati100epoch_yolov5x --augment
+```
