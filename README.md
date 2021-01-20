@@ -71,6 +71,24 @@ To run inference on example images in `$YOLOv5Dir/data/images/sassoon` (*where* 
 $ python detect.py --source $YOLOdata/images/sassoon --weights sassoon_wandb_best_150epoch_trained_on_masati100epoch_yolov5x --conf 0.25
 ```
 
+Key command line options are shown below:
+| Argument | Type | Default Value | Effect |
+| --- | --- | --- | --- |
+| --weights | `str` | 'yolov5s.pt' | model.pt path(s) |
+| --source | `str` | 'data/images' | source file/folder |
+| --img-size | `int` | 640 | inference image size (pixels) | 
+| --conf-thres | `float` | 0.25 | object confidence threshold | 
+| --iou-thres | `float` | 0.45 | IOU threshold |
+| --view-img | | stored as `True` if present | Display results Y/N | 
+| --save-txt | | stored as `True` if present | saves results to *.txt | 
+| --save-conf | | stored as `True` if present | save confidences in --save-txt labels | 
+| --agnostic-nms | | stored as `True` if present | class-agnostic NMS')
+| --augment | | stored as `True` if present | augmented inference | 
+| --update | | stored as `True` if present | update all models |
+| --project | `str` | 'runs/detect' | sets directory path for  results project|
+| --name | `str` | 'exp' | save results to project/name' (see previous argument) |
+
+
 ### Things to try
 * Test Time Augmentation ([TTA](https://github.com/ultralytics/yolov5/issues/303)) runs at 3 image sizes. **Reproduce TTA** by
 ```bash

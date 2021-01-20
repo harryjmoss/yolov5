@@ -66,14 +66,24 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=None):
         cv2.rectangle(img, c1, c2, color, -1, cv2.LINE_AA)  # filled
         cv2.putText(img, label, (c1[0], c1[1] - 2), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
     
-def plot_box_centroid(x, img, color=None, label=None, line_thickness=None):
+def plot_box_centroid(x, img, object_index, color=None, label=None, line_thickness=None):
     # Plots a solid circle representing centre of bounding box on image img
     color = color or [random.randint(0, 255) for _ in range(3)]
     #print("img shape 0: {}, img shape 1: {}".format(img.shape[0], img.shape[1]))
     x_coord = int(x[0]*img.shape[1])
     y_coord = int(x[1]*img.shape[0])
     c1, c2 = int(x[0]), int(x[1])
+
+    TEXT_SCALE = 0.5
+    TEXT_THICKNESS = 2
+    TEXT = "0"
+    TEXT_COLOUR = (0,0,0) # RGB values, set to black
+    TEXT_FACE = cv2.FONT_HERSHEY_SIMPLEX
     cv2.circle(img, (x_coord, y_coord), radius=5, color=color, thickness=-1)
+    text_size, _ = cv2.getTextSize(str(object_index), TEXT_FACE, TEXT_SCALE, TEXT_THICKNESS)
+    text_origin = (int(x_coord - text_size[0] / 2), int(y_coord + text_size[1] / 2))
+
+    cv2.putText(img, str(object_index), text_origin, TEXT_FACE, TEXT_SCALE, TEXT_COLOUR, TEXT_THICKNESS, cv2.LINE_AA)
 
 def plot_wh_methods():  # from utils.plots import *; plot_wh_methods()
     # Compares the two methods for width-height anchor multiplication

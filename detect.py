@@ -104,18 +104,20 @@ def detect(save_img=False):
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
                 # Write results
+                object_index = 0
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                        line = (cls, *xywh, conf) if opt.save_conf else (cls, *xywh)  # label format
+                        line = (object_index, cls, *xywh, conf) if opt.save_conf else (object_index, cls, *xywh)  # label format
                         with open(txt_path + '.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
                     if save_img or view_img:  # Add bbox to image
                         label = '%s %.2f' % (names[int(cls)], conf)
                         plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
-                        plot_box_centroid(xywh, im1, color=colors[int(cls)])
-                        
+                        plot_box_centroid(xywh, im1, object_index, color=colors[int(cls)], object_index)
+                    
+                    object_index += 1
                         
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
